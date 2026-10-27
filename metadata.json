@@ -1,0 +1,6 @@
+{
+  "name": "MindHaven",
+  "description": "A private, gentle wellness journal to log moods, daily gratitude, reflections, and mindfulness.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,149 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User preferences, profile information and privacy settings",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique Google user ID"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name"
+        },
+        "biometricLockEnabled": {
+          "type": "boolean",
+          "description": "Whether app privacy lock is enabled"
+        },
+        "themeMode": {
+          "type": "string",
+          "description": "Chosen color palette theme",
+          "enum": ["gentle_sage", "lavender_dusk", "rose_dawn"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp via serverTimestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp via serverTimestamp"
+        }
+      },
+      "required": ["userId", "displayName", "biometricLockEnabled", "themeMode", "createdAt"]
+    },
+    "CheckIn": {
+      "title": "CheckIn",
+      "description": "10-second daily check-in with mood, emotions, energy and sleep",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date string YYYY-MM-DD"
+        },
+        "moodScore": {
+          "type": "integer",
+          "description": "Mood score from 1 (Rough) to 5 (Radiant)"
+        },
+        "moodLabel": {
+          "type": "string",
+          "description": "Descriptive mood label"
+        },
+        "emotionTags": {
+          "type": "array",
+          "description": "Emotion tags selected during check-in"
+        },
+        "energyLevel": {
+          "type": "integer",
+          "description": "Energy level rating from 1 to 5"
+        },
+        "sleepQuality": {
+          "type": "integer",
+          "description": "Sleep quality rating from 1 to 5"
+        },
+        "note": {
+          "type": "string",
+          "description": "Optional quick note"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp via serverTimestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Update timestamp via serverTimestamp"
+        }
+      },
+      "required": ["userId", "date", "moodScore", "moodLabel", "emotionTags", "energyLevel", "sleepQuality", "createdAt"]
+    },
+    "JournalEntry": {
+      "title": "JournalEntry",
+      "description": "Daily gratitude prompts and freeform reflection entry",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date string YYYY-MM-DD"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the journal entry"
+        },
+        "gratitudeAnswers": {
+          "type": "array",
+          "description": "Array of 1 to 3 gratitude items"
+        },
+        "reflection": {
+          "type": "string",
+          "description": "Freeform reflection body text"
+        },
+        "promptQuestion": {
+          "type": "string",
+          "description": "Inspirational prompt question answered"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Category tags for the reflection"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp via serverTimestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Update timestamp via serverTimestamp"
+        }
+      },
+      "required": ["userId", "date", "title", "gratitudeAnswers", "reflection", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile and wellness preferences"
+    },
+    "/users/{userId}/checkIns/{checkInId}": {
+      "schema": "CheckIn",
+      "description": "Daily 10-second check-in records"
+    },
+    "/users/{userId}/journalEntries/{entryId}": {
+      "schema": "JournalEntry",
+      "description": "Daily gratitude and reflective journal entries"
+    }
+  }
+}
